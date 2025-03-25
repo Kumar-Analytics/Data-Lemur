@@ -17,6 +17,9 @@ job_id	company_id title	          description
 172	    244	      Data Engineer	    Data engineer works in a variety of settings to build systems that collect, manage, and convert raw data into usable information for data scientists and business analysts to interpret.
 
 
+Step 1: Identify companies with duplicate job listings
+The first step is to determine which companies have posted duplicate job listings with the same title and description. 
+We can do so by utilizing the COUNT() aggregate function to calculate the number of job_id entries grouped by company_id, title, and description.
 
 SELECT 
   company_id, 
@@ -26,7 +29,17 @@ SELECT
 FROM job_listings
 GROUP BY company_id, title, description;
 
+company_id	title	        description	              job_count
+827	    Data Scientist	Data scientist uses data to 2
+244	    Data Engineer	  Data engineer works in...   1
+845	    Business Analyst	Business analyst evaluates	1
+244	    Software Engineer	Software engineers design 	2
+345	    Data Analyst	  Data analyst reviews data	    2
 
+Step 2: Filter for companies with duplicate job listings
+Next, we can proceed to filter the previous query by converting it into a Common Table Expression (CTE) and selecting only the rows where 
+the job_count is greater than 1, indicating the presence of duplicate job listings.
+To obtain a count of unique companies, we apply the DISTINCT keyword on the company_id column.
 
 WITH job_count_cte AS (
   SELECT 
