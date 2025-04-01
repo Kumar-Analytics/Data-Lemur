@@ -91,6 +91,7 @@ Lastly, round the result to 1 decimal.
 
 We are done, good job!
 
+
 SELECT 
   ROUND(
     100.0 * SUM(CASE
@@ -102,6 +103,9 @@ LEFT JOIN phone_info AS caller
 LEFT JOIN phone_info AS receiver
   ON calls.receiver_id = receiver.caller_id;
 
+Result:
+international_call_pct
+54.5
 
 Solution #2: Using FILTER Thanking user @acejetman12345 for this fantastic solution using FILTER which we have adapted slightly.
 
@@ -138,3 +142,5 @@ SELECT
     100.0 * COUNT(*)
   / (SELECT COUNT(*) FROM phone_calls),1) AS international_call_pct
 FROM international_calls;
+
+
