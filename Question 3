@@ -147,3 +147,22 @@ SELECT
 FROM international_calls;
 
 
+SQL (TSQL)
+Another solution- 
+WITH call_stats AS (
+  SELECT 
+    COUNT(*) AS total_calls,
+    SUM(CASE WHEN caller.country_id <> receiver.country_id THEN 1 ELSE 0 END) AS international_calls
+  FROM phone_calls AS calls
+  LEFT JOIN phone_info AS caller
+    ON calls.caller_id = caller.caller_id
+  LEFT JOIN phone_info AS receiver
+    ON calls.receiver_id = receiver.caller_id
+)
+
+SELECT 
+  ROUND(100.0 * international_calls / NULLIF(total_calls, 0), 1) AS international_calls_pct
+FROM call_stats;
+
+
+
