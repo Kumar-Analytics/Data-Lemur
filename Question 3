@@ -45,7 +45,8 @@ There is a total of 4 calls with 2 of them being international calls (from calle
 
 Step 1: Join the tables to obtain the caller's and receiver's country information
 
-To determine whether a call is international or not, we need country_id for both caller and receiver. This can be achieved by joining phone_info twice, first for the caller, and second for the receiver.
+To determine whether a call is international or not, we need country_id for both caller and receiver. 
+This can be achieved by joining phone_info twice, first for the caller, and second for the receiver.
 
 SELECT  
   caller.country_id AS caller_country,
@@ -63,7 +64,8 @@ number of total calls
 number of international calls
 Getting the number of total calls is easy with COUNT(*).
 
-As for the number of international calls, we can use the CASE statement to check if the caller's country is different from the receiver's country. If it is, assign the value of 1 for international calls, otherwise NULL for non-international calls. This is known as a conditional count function.
+As for the number of international calls, we can use the CASE statement to check if the caller's country is different from the receiver's country. 
+If it is, assign the value of 1 for international calls, otherwise NULL for non-international calls. This is known as a conditional count function.
 
 Then, we wrap the CASE statement with either SUM() or COUNT() to add up the numbers with a value of 1 to obtain the count of international calls.
 
@@ -85,7 +87,8 @@ Step 3: Calculate the percentage of international calls
 
 For the final step, we calculate the percentage of international calls. To obtain this, divide the count of international calls by the total.
 
-However, it is important to multiply this result with 100.0 (instead of 100) due to integer division. To elaborate, as both numbers are integers, the result would be also an integer, truncating the decimals from the result.
+However, it is important to multiply this result with 100.0 (instead of 100) due to integer division. 
+To elaborate, as both numbers are integers, the result would be also an integer, truncating the decimals from the result.
 
 Lastly, round the result to 1 decimal.
 
